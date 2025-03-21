@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OptiLearn - Main Screen</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            background-color: #D3D3D3;
+            overflow: hidden;
+        }
+
+        .navbar {
+            width: 100%;
+            background-color: #4caf50;
+            padding: 10px 0;
+            display: flex;
+            justify-content: flex-end;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .navbar ul li {
+            display: inline;
+        }
+
+        .navbar ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 10px 15px;
+            transition: background-color 0.3s;
+        }
+
+        .navbar ul li a:hover {
+            background-color: #45a049;
+            border-radius: 5px;
+        }
+
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 90%;
+            max-width: 1200px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .header {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            color: #333;
+        }
+
+        .content {
+            display: flex;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .left-column {
+            flex: 1;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            overflow-y: auto;
+            max-height: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .right-column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .task-list h2, .pomodoro h2, .notepad h2 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .task-list ul {
+            list-style: none;
+            padding: 0;
+            overflow: auto;
+        }
+
+        .task-list ul li {
+            padding: 8px 10px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .task-list ul li button {
+            margin-left: 5px;
+            padding: 5px 10px;
+            font-size: 12px;
+            color: white;
+            background-color: #45a049;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .task-list ul li button:hover {
+            background-color: grey;
+        }
+
+        .task-list .task-controls {
+            margin-bottom: 10px;
+        }
+
+        .task-list .task-controls button {
+            padding: 8px 12px;
+            font-size: 14px;
+            color: white;
+            background-color: #45a049;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .task-list .task-controls button:hover {
+            background-color: grey;
+        }
+
+        .pomodoro {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .timer {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .timer-controls button {
+            padding: 8px 12px;
+            background-color: #45a049;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        .timer-controls button:hover {
+            background-color: grey;
+        }
+
+        .notepad {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+        }
+
+        .notepad textarea {
+            width: 100%;
+            height: 200px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 14px;
+            resize: none;
+        }
+
+        .notepad .save-button {
+            margin-top: 10px;
+            padding: 8px 12px;
+            background-color: #45a049;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .notepad .save-button:hover {
+            background-color: grey;
+        }
+
+    </style>
+</head>
+<body>
+<div class="navbar">
+    <ul>
+        <li><a id="logout-Btn" href="#">Logout</a></li>
+    </ul>
+</div>
+<div class="main-container">
+    <div class="header">
+        <h1>Welcome to OptiLearn</h1>
+    </div>
+    <div class="content">
+        <div class="left-column task-list">
+            <h2 >Task List</h2>
+            <ul id="taskList">
+
+            </ul>
+            <div class="task-controls">
+                <button id="addTaskBtn">Create Task</button>
+            </div>
+        </div>
+        <!-- Right Column Section -->
+        <div class="right-column">
+            <!-- Pomodoro Timer Section -->
+            <div class="pomodoro">
+                <h2>Pomodoro Timer</h2>
+                <div class="timer" id=timer>20:00</div>
+                <div class="timer-controls">
+                    <button id=startBtn>Start </button>
+                    <button id=pauseBtn>Pause </button>
+                    <button id=resetBtn>Reset </button>
+                </div>
+            </div>
+            <!-- Notepad Section -->
+            <div class="notepad">
+                <h2>Notepad</h2>
+                <textarea placeholder="Write your notes here..."></textarea>
+                <button class="save-button"  id = saveBtn>Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="MainScreen.js"></script>
+</body>
+</html>
