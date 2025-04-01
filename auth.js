@@ -22,7 +22,7 @@ loginBtn?.addEventListener("click", async() => {
 const signupLink = document.getElementById('createAccount');
 signupLink?.addEventListener("click", (event) => {
     event.preventDefault();
-    window.location.href = 'SignUp.html';
+    window.location.href = 'index.html';
 });
 
 //Signup
